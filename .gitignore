@@ -1,0 +1,17 @@
+# Ignorar datos pesados
+data/
+*.npy
+
+# Ignorar entorno virtual
+.venv/
+venv/
+env/
+
+# Ignorar archivos temporales de Python y Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Ignorar archivos del sistema
+.DS_Store
+Thumbs.db

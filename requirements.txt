@@ -1,0 +1,23 @@
+# --- Procesamiento de Datos ---
+numpy
+pandas
+
+# --- Visión por Computador y Procesamiento de Imágenes ---
+# Necesario para CLAHE, Momentos de Hu, Contornos
+opencv-python
+# Necesario para HOG, LBP, GLCM
+scikit-image
+
+# --- Machine Learning Clásico (SVM, Random Forest, PCA) ---
+scikit-learn
+
+# --- Deep Learning (CNNs) ---
+tensorflow
+
+# --- Visualización (Gráficas y Matrices de Confusión) ---
+matplotlib
+seaborn
+
+# --- Entorno de Notebooks (Recomendado para exploración) ---
+jupyter
+ipykernel
