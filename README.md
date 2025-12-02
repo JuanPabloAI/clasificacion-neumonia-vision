@@ -47,8 +47,7 @@ clasificacion-neumonia-vision/
 ├── notebooks/                                   # Notebooks de Jupyter
 │   ├── 01_exploracion_y_preprocesamiento.ipynb  # Análisis EDA + CLAHE
 │   ├── 02_extraccion_de_descriptores.ipynb      # HOG, LBP, GLCM, Gabor, etc.
-│   ├── 03_clasificacion_con_descriptores_clasicos.ipynb  # SVM, RF, k-NN
-│   └── 04_clasificacion_con_redes_neuronales.ipynb      # CNNs (opcional)
+│   ├── 03_clasificacion_con_descriptores_clasicos.ipynb  # SVM, RF, k-NN, LR, CNN.
 └── results/                                     # Resultados generados
     ├── features_classical.npz                   # Características extraídas
     └── figures/                                 # Visualizaciones
@@ -143,21 +142,23 @@ jupyter notebook
 ```
 
 **Figuras generadas**:
-- `01_muestras_radiografias.png` - Ejemplos de imágenes NORMAL y PNEUMONIA
-- `02_distribucion_clases.png` - Distribución del dataset
-- `03_comparacion_clahe.png` - Efecto de CLAHE vs ecualización estándar
-- `04_hog_visualization.png` - Visualización de descriptor HOG
-- `05_lbp_visualization.png` - Visualización de descriptor LBP
-- `06_gabor_filters.png` - Banco de filtros de Gabor
-- `07_feature_distributions.png` - Distribuciones de características discriminativas
-- `08_top_discriminative_features.png` - Top 20 características (Cohen's d)
-- `09_pca_2d_visualization.png` - Proyección PCA 2D
-- `10_pca_variance_explained.png` - Varianza explicada por componentes
-- `11_cv_comparison.png` - Comparación de validación cruzada
-- `12_metrics_comparison.png` - Comparación de métricas
-- `13_confusion_matrices.png` - Matrices de confusión de todos los modelos
-- `14_roc_curves.png` - Curvas ROC
-- `15_feature_importance.png` - Importancia de características (Random Forest)
+- `01_muestras_radiografias.png` — Ejemplos de imágenes NORMAL y PNEUMONIA
+- `02_distribucion_clases.png` — Distribución del dataset
+- `03_comparacion_clahe.png` — Comparación entre CLAHE y ecualización estándar
+- `04_hog_visualization.png` — Visualización del descriptor HOG
+- `05_lbp_visualization.png` — Visualización del descriptor LBP
+- `06_gabor_filters.png` — Banco de filtros de Gabor
+- `07_feature_distributions.png` — Distribuciones de características discriminativas
+- `08_top_discriminative_features.png` — Top 20 características (Cohen’s d)
+- `09_pca_2d_visualization.png` — Proyección PCA en 2D
+- `10_pca_variance_explained.png` — Varianza explicada por cada componente principal
+- `11_cv_comparison.png` — Comparación de desempeño en validación cruzada
+- `12_metrics_comparison.png` — Comparación global de métricas de los modelos
+- `13_confusion_matrices.png` — Matrices de confusión de **todos los modelos clásicos**
+- `14_roc_curves.png` — Curvas ROC comparadas
+- `15_feature_importance.png` — Importancia de características según Random Forest
+- `16_confusion_matrix_cnn.png` — Matriz de confusión del modelo CNN
+- `17_roc_cnn.png` — Curva **ROC** del modelo CNN
 
 ### Copiar Figuras a GitHub Pages
 
@@ -202,18 +203,13 @@ ls docs/assets/images/
      - Random Forest
      - k-NN
    - Validación cruzada estratificada (5-Fold)
+   - Entrenamiento de CNN
    - Evaluación con métricas:
      - Accuracy, Precision, Recall, F1-Score
      - Matrices de Confusión
      - Curvas ROC y AUC
    - Análisis de importancia de características
    - Optimización de hiperparámetros (GridSearchCV)
-
-4. **`04_clasificacion_con_redes_neuronales.ipynb`** *(Parte 4 - Opcional)*
-   - Arquitecturas CNN personalizadas
-   - Transfer Learning (VGG16, ResNet, EfficientNet)
-   - Data Augmentation
-   - Comparación con métodos clásicos
 
 ## 📈 Resultados Esperados
 
@@ -238,7 +234,7 @@ Debido al desbalance (74.3% Pneumonia), un clasificador que siempre prediga "Pne
 |-----------|-------------|
 | **Lenguaje** | Python 3.10+ |
 | **Procesamiento de Imágenes** | OpenCV, scikit-image |
-| **Machine Learning** | scikit-learn, scipy |
+| **Machine Learning** | scikit-learn, scipy, tensorflow |
 | **Visualización** | matplotlib, seaborn |
 | **Notebooks** | Jupyter, IPython |
 | **Gestión de Datos** | NumPy, pandas |
@@ -267,6 +263,7 @@ Debido al desbalance (74.3% Pneumonia), un clasificador que siempre prediga "Pne
 - ✅ Random Forest (con análisis de importancia)
 - ✅ k-NN (vecinos cercanos)
 - ✅ Logistic Regression
+- ✅ Convolutional Neural Networks
 
 ### Evaluación
 - ✅ Validación cruzada estratificada
