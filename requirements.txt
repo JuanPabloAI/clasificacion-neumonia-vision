@@ -34,8 +34,5 @@ kagglehub>=0.2.0                  # Descarga automática del dataset de Kaggle
 tqdm>=4.65.0                      # Barras de progreso para procesamiento
 pillow>=10.0.0                    # Soporte adicional para imágenes
 
-# --- Deep Learning (Opcional - Parte 4) ---
-# Descomenta si implementas CNNs en la Parte 4
-# tensorflow>=2.13.0,<2.18.0      # Para Python 3.10-3.12
-# torch>=2.0.0                     # Alternativa a TensorFlow
-# torchvision>=0.15.0              # Utilidades para PyTorch
+# --- Deep Learning ---
+tensorflow>=2.13.0,<2.18.0      # Para Python 3.10-3.12
