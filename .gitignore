@@ -1,6 +1,7 @@
 # Ignorar datos pesados
 data/
 *.npy
+results/features_classical.npz
 
 # Ignorar entorno virtual
 .venv/

@@ -1,0 +1,32 @@
+title: "Clasificación de Neumonía en Radiografías"
+description: "Comparación de Descriptores Handcrafted vs Deep Learning"
+theme: jekyll-theme-cayman
+show_downloads: false
+author: "Juan Pablo Palacio, David Giraldo, Andrés Felipe Moreno, Víctor Manuel Velásquez"
+
+# GitHub Pages settings
+baseurl: "/clasificacion-neumonia-vision"
+url: "https://juanpabloai.github.io"
+
+# Repository settings
+github:
+  repository_url: https://github.com/JuanPabloAI/clasificacion-neumonia-vision
+  owner_name: JuanPabloAI
+  repository_name: clasificacion-neumonia-vision
+
+# Plugins
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+
+# Markdown settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
