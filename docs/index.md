@@ -664,10 +664,10 @@ Todos los integrantes contribuyeron de manera equitativa al éxito del proyecto,
 ## 📧 Contacto
 
 Para consultas sobre este proyecto, contactar a:
-- Juan Pablo Palacio Pérez - Universidad Nacional de Colombia
-- David Giraldo Valencia - Universidad Nacional de Colombia
-- Andrés Felipe Moreno Calle - Universidad Nacional de Colombia
-- Víctor Manuel Velásquez Cabeza - Universidad Nacional de Colombia
+- Juan Pablo Palacio Pérez - Universidad Nacional de Colombia - [juppalaciope@unal.edu.co](mailto:juppalaciope@unal.edu.co)
+- David Giraldo Valencia - Universidad Nacional de Colombia - [dgiraldova@unal.edu.co](mailto:dgiraldova@unal.edu.co)
+- Andrés Felipe Moreno Calle - Universidad Nacional de Colombia - [amorenocal@unal.edu.co](mailto:amorenocal@unal.edu.co)
+- Víctor Manuel Velásquez Cabeza - Universidad Nacional de Colombia - [vivelasquezc@unal.edu.co](mailto:vivelasquezc@unal.edu.co)
 
 ---
 
