@@ -7,6 +7,8 @@ description: Comparación de Descriptores Clásicos vs Deep Learning
 # Clasificación de Neumonía en Radiografías de Tórax
 ## Descriptores Handcrafted vs Deep Learning
 
+**Equipo:** Grillo Digital
+
 **Autores:**  
 Juan Pablo Palacio Pérez, David Giraldo Valencia, Andrés Felipe Moreno Calle, Víctor Manuel Velásquez Cabeza
 
@@ -33,7 +35,7 @@ Juan Pablo Palacio Pérez, David Giraldo Valencia, Andrés Felipe Moreno Calle, 
 
 ### 1.1 Contexto y Motivación
 
-La neumonía es una de las principales causas de mortalidad infantil a nivel mundial, responsable de aproximadamente el 15% de todas las muertes en niños menores de 5 años [1]. El diagnóstico temprano y preciso mediante radiografías de tórax es crucial para iniciar el tratamiento adecuado y mejorar los resultados clínicos.
+La neumonía es una de las principales causas de mortalidad infantil a nivel mundial, responsable de aproximadamente el 15% de todas las muertes en niños menores de 5 años [[1]](#ref1). El diagnóstico temprano y preciso mediante radiografías de tórax es crucial para iniciar el tratamiento adecuado y mejorar los resultados clínicos.
 
 La interpretación de radiografías de tórax requiere experiencia médica especializada y puede verse afectada por la variabilidad inter-observador. En este contexto, los sistemas de asistencia al diagnóstico basados en visión por computador pueden ser herramientas valiosas para:
 
@@ -53,7 +55,7 @@ Este trabajo tiene como objetivo **comparar dos enfoques fundamentales** en visi
 
 ### 1.3 Dataset
 
-Utilizamos el dataset **Chest X-Ray Pneumonia** disponible en Kaggle [2], que contiene:
+Utilizamos el dataset **Chest X-Ray Pneumonia** disponible en Kaggle [[2]](#ref2), que contiene:
 
 | Conjunto | NORMAL | PNEUMONIA | Total |
 |----------|--------|-----------|-------|
@@ -75,7 +77,7 @@ Utilizamos el dataset **Chest X-Ray Pneumonia** disponible en Kaggle [2], que co
 
 #### 2.1.1 Histogram of Oriented Gradients (HOG)
 
-HOG [3] es un descriptor que captura la distribución de gradientes de intensidad en una imagen. Es particularmente útil para detectar estructuras como bordes de costillas y clavículas en radiografías.
+HOG [[3]](#ref3) es un descriptor que captura la distribución de gradientes de intensidad en una imagen. Es particularmente útil para detectar estructuras como bordes de costillas y clavículas en radiografías.
 
 **Principio:** Divide la imagen en celdas pequeñas (8×8 píxeles), calcula histogramas de orientaciones de gradientes en cada celda, y normaliza por bloques (3×3 celdas) para robustez ante cambios de iluminación.
 
@@ -87,7 +89,7 @@ HOG [3] es un descriptor que captura la distribución de gradientes de intensida
 
 #### 2.1.2 Momentos de Hu
 
-Los 7 momentos invariantes de Hu [4] caracterizan la forma global de objetos mediante funciones de los momentos centrales de la imagen. Son **invariantes** a:
+Los 7 momentos invariantes de Hu [[4]](#ref4) caracterizan la forma global de objetos mediante funciones de los momentos centrales de la imagen. Son **invariantes** a:
 - **Traslación**: Posición del objeto en la imagen
 - **Escala**: Tamaño del objeto
 - **Rotación**: Orientación del objeto
@@ -107,7 +109,7 @@ Extraemos características geométricas del contorno más grande detectado (regi
 
 #### 2.2.1 Local Binary Patterns (LBP)
 
-LBP [5] codifica la textura local comparando cada píxel con sus vecinos en un radio específico. Es excelente para detectar patrones repetitivos en tejido pulmonar.
+LBP [[5]](#ref5) codifica la textura local comparando cada píxel con sus vecinos en un radio específico. Es excelente para detectar patrones repetitivos en tejido pulmonar.
 
 **Configuración:**
 - 24 puntos vecinos (mayor robustez que el clásico 8-puntos)
@@ -116,7 +118,7 @@ LBP [5] codifica la textura local comparando cada píxel con sus vecinos en un r
 
 #### 2.2.2 Gray Level Co-occurrence Matrix (GLCM)
 
-GLCM [6] mide relaciones espaciales entre píxeles a diferentes direcciones y distancias. Extraemos 5 propiedades estadísticas:
+GLCM [[6]](#ref6) mide relaciones espaciales entre píxeles a diferentes direcciones y distancias. Extraemos 5 propiedades estadísticas:
 
 1. **Contraste**: Variación local de intensidad
 2. **Disimilitud**: Similar al contraste pero más suave
@@ -128,7 +130,7 @@ Calculamos estas propiedades en 4 direcciones (0°, 45°, 90°, 135°) y promedi
 
 #### 2.2.3 Filtros de Gabor
 
-Los filtros de Gabor [7] son filtros lineales utilizados para análisis de textura, especialmente para detectar patrones direccionales a diferentes frecuencias y orientaciones.
+Los filtros de Gabor [[7]](#ref7) son filtros lineales utilizados para análisis de textura, especialmente para detectar patrones direccionales a diferentes frecuencias y orientaciones.
 
 **Banco de filtros:**
 - 3 frecuencias: 0.1, 0.2, 0.3 (diferentes escalas)
@@ -149,24 +151,24 @@ Características básicas pero poderosas de la distribución de intensidades:
 
 #### Support Vector Machines (SVM)
 
-SVM [8] busca el hiperplano óptimo que maximiza el margen entre clases. Probamos dos kernels:
+SVM [[8]](#ref8) busca el hiperplano óptimo que maximiza el margen entre clases. Probamos dos kernels:
 - **Linear**: Para datos linealmente separables
 - **RBF (Radial Basis Function)**: Permite fronteras de decisión no lineales
 
 #### Random Forest
 
-Ensemble de árboles de decisión [9] que combina múltiples predictores débiles mediante votación. Ventajas:
+Ensemble de árboles de decisión [[9]](#ref9) que combina múltiples predictores débiles mediante votación. Ventajas:
 - Robusto ante overfitting
 - Proporciona importancia de características
 - Maneja bien datos de alta dimensionalidad
 
 #### k-Nearest Neighbors (k-NN)
 
-Clasificador basado en instancias que asigna la clase mayoritaria entre los k vecinos más cercanos [10]. Simple pero efectivo para datasets pequeños.
+Clasificador basado en instancias que asigna la clase mayoritaria entre los k vecinos más cercanos [[10]](#ref10). Simple pero efectivo para datasets pequeños.
 
 #### Regresión Logística
 
-Modelo probabilístico lineal [11] que estima la probabilidad de pertenencia a una clase mediante función logística. Rápido y interpretable.
+Modelo probabilístico lineal [[11]](#ref11) que estima la probabilidad de pertenencia a una clase mediante función logística. Rápido y interpretable.
 
 ---
 
@@ -475,9 +477,9 @@ Casos normales clasificados como neumonía:
 
 | Método | Accuracy | F1-Score | Referencia |
 |--------|----------|----------|------------|
-| CNN Custom | 0.93 | 0.95 | [12] |
-| Transfer Learning (VGG16) | 0.96 | 0.97 | [13] |
-| ResNet50 + Data Aug | 0.98 | 0.98 | [14] |
+| CNN Custom | 0.93 | 0.95 | [[12]](#ref12) |
+| Transfer Learning (VGG16) | 0.96 | 0.97 | [[13]](#ref13) |
+| ResNet50 + Data Aug | 0.98 | 0.98 | [[14]](#ref14) |
 | **Nuestro RF** | **0.93** | **0.95** | Este trabajo |
 
 **Observación sorprendente:** Nuestros descriptores clásicos alcanzan rendimiento **comparable** a CNNs básicas, aunque inferior a arquitecturas modernas con transfer learning.
@@ -523,17 +525,8 @@ Casos normales clasificados como neumonía:
 - **Muchos datos + máximo rendimiento** → Deep Learning
 - **Mejor de ambos mundos** → Enfoques híbridos
 
-### 6.3 Trabajo Futuro
 
-1. **Implementar CNNs** (Parte 4 del trabajo) para comparación directa
-2. **Transfer Learning** con redes pre-entrenadas (VGG, ResNet)
-3. **Enfoques híbridos**: Combinar descriptores clásicos con features CNN
-4. **Data augmentation**: Rotaciones, flips, zoom para aumentar datos
-5. **Análisis de atención**: Visualizar qué regiones influyen en decisiones
-6. **Validación clínica**: Evaluar con radiólogos expertos
-7. **Detección de incertidumbre**: Indicar cuando el modelo es "inseguro"
-
-### 6.4 Reflexión Final
+### 6.3 Reflexión Final
 
 Este proyecto demuestra que los **fundamentos de visión por computador** siguen siendo relevantes en la era del Deep Learning. Comprender cómo funcionan los descriptores clásicos proporciona:
 
@@ -548,33 +541,33 @@ El conocimiento de ambos paradigmas hace mejores científicos de datos en visió
 
 ## 7. Referencias
 
-[1] World Health Organization. (2019). Pneumonia. Retrieved from https://www.who.int/news-room/fact-sheets/detail/pneumonia
+<a id="ref1"></a>[1] World Health Organization. (2019). Pneumonia. [https://www.who.int/news-room/fact-sheets/detail/pneumonia](https://www.who.int/news-room/fact-sheets/detail/pneumonia)
 
-[2] Mooney, P. (2018). Chest X-Ray Images (Pneumonia). Kaggle. https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia
+<a id="ref2"></a>[2] Mooney, P. (2018). Chest X-Ray Images (Pneumonia). Kaggle. [https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia)
 
-[3] Dalal, N., & Triggs, B. (2005). Histograms of oriented gradients for human detection. *2005 IEEE Computer Society Conference on Computer Vision and Pattern Recognition (CVPR'05)*, 1, 886-893.
+<a id="ref3"></a>[3] Dalal, N., & Triggs, B. (2005). Histograms of oriented gradients for human detection. *2005 IEEE Computer Society Conference on Computer Vision and Pattern Recognition (CVPR'05)*, 1, 886-893. [https://doi.org/10.1109/CVPR.2005.177](https://doi.org/10.1109/CVPR.2005.177)
 
-[4] Hu, M. K. (1962). Visual pattern recognition by moment invariants. *IRE Transactions on Information Theory*, 8(2), 179-187.
+<a id="ref4"></a>[4] Hu, M. K. (1962). Visual pattern recognition by moment invariants. *IRE Transactions on Information Theory*, 8(2), 179-187. [https://doi.org/10.1109/TIT.1962.1057692](https://doi.org/10.1109/TIT.1962.1057692)
 
-[5] Ojala, T., Pietikäinen, M., & Mäenpää, T. (2002). Multiresolution gray-scale and rotation invariant texture classification with local binary patterns. *IEEE Transactions on Pattern Analysis and Machine Intelligence*, 24(7), 971-987.
+<a id="ref5"></a>[5] Ojala, T., Pietikäinen, M., & Mäenpää, T. (2002). Multiresolution gray-scale and rotation invariant texture classification with local binary patterns. *IEEE Transactions on Pattern Analysis and Machine Intelligence*, 24(7), 971-987. [https://doi.org/10.1109/TPAMI.2002.1017623](https://doi.org/10.1109/TPAMI.2002.1017623)
 
-[6] Haralick, R. M., Shanmugam, K., & Dinstein, I. H. (1973). Textural features for image classification. *IEEE Transactions on Systems, Man, and Cybernetics*, SMC-3(6), 610-621.
+<a id="ref6"></a>[6] Haralick, R. M., Shanmugam, K., & Dinstein, I. H. (1973). Textural features for image classification. *IEEE Transactions on Systems, Man, and Cybernetics*, SMC-3(6), 610-621. [https://doi.org/10.1109/TSMC.1973.4309314](https://doi.org/10.1109/TSMC.1973.4309314)
 
-[7] Jain, A. K., & Farrokhnia, F. (1991). Unsupervised texture segmentation using Gabor filters. *Pattern Recognition*, 24(12), 1167-1186.
+<a id="ref7"></a>[7] Jain, A. K., & Farrokhnia, F. (1991). Unsupervised texture segmentation using Gabor filters. *Pattern Recognition*, 24(12), 1167-1186. [https://doi.org/10.1016/0031-3203(91)90143-S](https://doi.org/10.1016/0031-3203(91)90143-S)
 
-[8] Cortes, C., & Vapnik, V. (1995). Support-vector networks. *Machine Learning*, 20(3), 273-297.
+<a id="ref8"></a>[8] Cortes, C., & Vapnik, V. (1995). Support-vector networks. *Machine Learning*, 20(3), 273-297. [https://doi.org/10.1007/BF00994018](https://doi.org/10.1007/BF00994018)
 
-[9] Breiman, L. (2001). Random forests. *Machine Learning*, 45(1), 5-32.
+<a id="ref9"></a>[9] Breiman, L. (2001). Random forests. *Machine Learning*, 45(1), 5-32. [https://doi.org/10.1023/A:1010933404324](https://doi.org/10.1023/A:1010933404324)
 
-[10] Cover, T., & Hart, P. (1967). Nearest neighbor pattern classification. *IEEE Transactions on Information Theory*, 13(1), 21-27.
+<a id="ref10"></a>[10] Cover, T., & Hart, P. (1967). Nearest neighbor pattern classification. *IEEE Transactions on Information Theory*, 13(1), 21-27. [https://doi.org/10.1109/TIT.1967.1053964](https://doi.org/10.1109/TIT.1967.1053964)
 
-[11] Hosmer Jr, D. W., Lemeshow, S., & Sturdivant, R. X. (2013). *Applied logistic regression* (Vol. 398). John Wiley & Sons.
+<a id="ref11"></a>[11] Hosmer Jr, D. W., Lemeshow, S., & Sturdivant, R. X. (2013). *Applied logistic regression* (Vol. 398). John Wiley & Sons. [https://doi.org/10.1002/9781118548387](https://doi.org/10.1002/9781118548387)
 
-[12] Kermany, D. S., et al. (2018). Identifying medical diagnoses and treatable diseases by image-based deep learning. *Cell*, 172(5), 1122-1131.
+<a id="ref12"></a>[12] Kermany, D. S., et al. (2018). Identifying medical diagnoses and treatable diseases by image-based deep learning. *Cell*, 172(5), 1122-1131. [https://doi.org/10.1016/j.cell.2018.02.010](https://doi.org/10.1016/j.cell.2018.02.010)
 
-[13] Rajpurkar, P., et al. (2017). CheXNet: Radiologist-level pneumonia detection on chest X-rays with deep learning. *arXiv preprint arXiv:1711.05225*.
+<a id="ref13"></a>[13] Rajpurkar, P., et al. (2017). CheXNet: Radiologist-level pneumonia detection on chest X-rays with deep learning. *arXiv preprint arXiv:1711.05225*. [https://arxiv.org/abs/1711.05225](https://arxiv.org/abs/1711.05225)
 
-[14] Stephen, O., et al. (2019). An efficient deep learning approach to pneumonia classification in healthcare. *Journal of Healthcare Engineering*, 2019.
+<a id="ref14"></a>[14] Stephen, O., et al. (2019). An efficient deep learning approach to pneumonia classification in healthcare. *Journal of Healthcare Engineering*, 2019. [https://doi.org/10.1155/2019/4180949](https://doi.org/10.1155/2019/4180949)
 
 ---
 

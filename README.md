@@ -307,10 +307,12 @@ jupyter kernelspec list  # Verificar instalación
 
 ## 👥 Equipo
 
-**Grupo:** [Nombre del grupo]  
+**Grupo:** Grillo Digital  
 **Integrantes:**
-- [Nombre 1] - [Contribución]
-- [Nombre 2] - [Contribución]
+- Juan Pablo Palacio Pérez - [juppalaciope@unal.edu.co](mailto:juppalaciope@unal.edu.co)
+- David Giraldo Valencia - [dgiraldova@unal.edu.co](mailto:dgiraldova@unal.edu.co)
+- Andrés Felipe Moreno Calle - [amorenocal@unal.edu.co](mailto:amorenocal@unal.edu.co)
+- Víctor Manuel Velásquez Cabeza - [vivelasquezc@unal.edu.co](mailto:vivelasquezc@unal.edu.co)
 
 ## 📖 Referencias
 
