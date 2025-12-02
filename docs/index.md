@@ -315,6 +315,8 @@ La proyección en 2 componentes principales (12% varianza) muestra:
 | k-NN (k=5) | 0.8526 | 0.8776 | 0.9128 | 0.8949 | 0.9342 |
 | Logistic Regression | 0.8429 | 0.8654 | 0.9051 | 0.8848 | 0.9245 |
 
+#### Visualizacion resultados de Clasificación
+![alt text](image.png)
 ### 4.4 Análisis del Mejor Modelo (Random Forest)
 
 #### Matriz de Confusión
