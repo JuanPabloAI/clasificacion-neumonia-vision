@@ -20,14 +20,14 @@ Juan Pablo Palacio Pérez, David Giraldo Valencia, Andrés Felipe Moreno Calle, 
 
 ## 📋 Tabla de Contenidos
 
-1. [Introducción](#introducción)
-2. [Marco Teórico](#marco-teórico)
-3. [Metodología](#metodología)
-4. [Experimentos y Resultados](#experimentos-y-resultados)
-5. [Análisis y Discusión](#análisis-y-discusión)
-6. [Conclusiones](#conclusiones)
-7. [Referencias](#referencias)
-8. [Análisis de Contribución Individual](#análisis-de-contribución-individual)
+1. [Introducción](#1-introducción)
+2. [Marco Teórico](#2-marco-teórico)
+3. [Metodología](#3-metodología)
+4. [Experimentos y Resultados](#4-experimentos-y-resultados)
+5. [Análisis y Discusión](#5-análisis-y-discusión)
+6. [Conclusiones](#6-conclusiones)
+7. [Referencias](#7-referencias)
+8. [Análisis de Contribución Individual](#8-análisis-de-contribución-individual)
 
 ---
 
