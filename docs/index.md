@@ -296,60 +296,63 @@ La proyección en 2 componentes principales (12% varianza) muestra:
 #### Validación Cruzada (5-Fold)
 
 | Clasificador | F1-Score (CV) | Std Dev |
-|--------------|---------------|---------|
-| Random Forest | 0.9142 | ±0.0087 |
-| SVM (RBF) | 0.9038 | ±0.0124 |
-| SVM (Linear) | 0.8756 | ±0.0156 |
-| k-NN (k=5) | 0.8423 | ±0.0198 |
-| Logistic Regression | 0.8312 | ±0.0203 |
+|--------------|---------------|---------|-----|
+| Logistic Regression | 0.9540 | ±0.0089 |
+| SVM (Linear) | 0.9628 | ±0.0092 |
+| SVM (RBF) | 0.9625 | ±0.0120 |
+| Random Forest | 0.9057 | ±0.0254 |
+| k-NN (k=5) | 0.9050 | ±0.0109 |
 
-**Ganador en CV:** Random Forest con 91.4% F1-Score
+**Ganador en CV:** SVM (Linear) con 96.3% F1-Score
 
 #### Resultados en Conjunto de Prueba
 
 | Clasificador | Accuracy | Precision | Recall | F1-Score | AUC-ROC |
-|--------------|----------|-----------|--------|----------|---------|
-| Random Forest | 0.9167 | 0.9423 | 0.9410 | 0.9416 | 0.9756 |
-| SVM (RBF) | 0.9087 | 0.9320 | 0.9359 | 0.9339 | 0.9712 |
-| SVM (Linear) | 0.8846 | 0.9058 | 0.9256 | 0.9156 | 0.9623 |
-| k-NN (k=5) | 0.8526 | 0.8776 | 0.9128 | 0.8949 | 0.9342 |
-| Logistic Regression | 0.8429 | 0.8654 | 0.9051 | 0.8848 | 0.9245 |
+|--------------|----------|-----------|--------|----------|---------|-----|
+| k-NN (k=5) | 0.8173 | 0.8670 | 0.8359 | 0.8512 | 0.8783 |
+| Logistic Regression | 0.7853 | 0.7581 | 0.9641 | 0.8488 | 0.9205 |
+| CNN (imágenes crudas) | 0.7772 | 0.7400 | 0.9923 | 0.8478 | 0.9339 |
+| SVM (Linear) | 0.7676 | 0.7388 | 0.9718 | 0.8394 | 0.9240 |
+| Random Forest | 0.7740 | 0.7610 | 0.9308 | 0.8374 | 0.8793 |
+| SVM (RBF) | 0.7596 | 0.7335 | 0.9667 | 0.8341 | 0.9105 |
 
 #### Visualizacion resultados de Clasificación
 ![alt text](image.png)
-### 4.4 Análisis del Mejor Modelo (Random Forest)
+### 4.4 Análisis del Mejor Modelo (k-NN, k=5)
 
 #### Matriz de Confusión
 
 ```
                   Predicho
                 NORMAL  PNEUMONIA
-Real  NORMAL      218       16
-      PNEUMONIA    36      354
+Real  NORMAL      184       50
+      PNEUMONIA    64      326
 ```
 
 **Análisis de errores:**
-- **Falsos Positivos (16)**: Pacientes normales clasificados como neumonía
+- **Falsos Positivos (50)**: Pacientes normales clasificados como neumonía (21.4% de casos normales)
   - Impacto: Pruebas adicionales innecesarias, ansiedad del paciente
-- **Falsos Negativos (36)**: Neumonías no detectadas
+- **Falsos Negativos (64)**: Neumonías no detectadas (16.4% de casos de neumonía)
   - Impacto: **MÁS CRÍTICO** - Retraso en tratamiento, riesgo de complicaciones
 
-**Recall de 94.1%** significa que detectamos correctamente el 94.1% de casos de neumonía.
+**Recall de 83.6%** significa que detectamos correctamente el 83.6% de casos de neumonía.
 
 #### Reporte de Clasificación Detallado
 
 ```
               precision    recall  f1-score   support
 
-      NORMAL       0.86      0.93      0.89       234
-   PNEUMONIA       0.96      0.91      0.93       390
+      NORMAL       0.74      0.79      0.76       234
+   PNEUMONIA       0.87      0.84      0.85       390
 
-    accuracy                           0.92       624
-   macro avg       0.91      0.92      0.91       624
-weighted avg       0.92      0.92      0.92       624
+    accuracy                           0.82       624
+   macro avg       0.80      0.81      0.81       624
+weighted avg       0.82      0.82      0.82       624
 ```
 
 #### Importancia de Características por Grupo
+
+Nota: Estas importancias corresponden al modelo Random Forest, aunque no fue el de mejor desempeño en test.
 
 | Grupo de Descriptores | Importancia Acumulada |
 |-----------------------|----------------------|
@@ -367,36 +370,17 @@ weighted avg       0.92      0.92      0.92       624
 
 ![Curvas ROC](assets/images/14_roc_curves.png)
 
-Todos los clasificadores muestran **excelente capacidad discriminativa** (AUC > 0.92):
-- **Random Forest**: AUC = 0.9756
-- **SVM RBF**: AUC = 0.9712  
-- **SVM Linear**: AUC = 0.9623
+Todos los clasificadores muestran **buena capacidad discriminativa** (AUC > 0.87):
+- **CNN (imágenes crudas)**: AUC = 0.9339
+- **SVM Linear**: AUC = 0.9240
+- **Logistic Regression**: AUC = 0.9205
+- **SVM RBF**: AUC = 0.9105
+- **Random Forest**: AUC = 0.8793
+- **k-NN (k=5)**: AUC = 0.8783
 
 ### 4.6 Optimización de Hiperparámetros
 
-Grid Search sobre Random Forest:
-
-**Mejores parámetros encontrados:**
-```python
-{
-    'n_estimators': 200,
-    'max_depth': None,
-    'min_samples_split': 2,
-    'min_samples_leaf': 1
-}
-```
-
-**F1-Score optimizado:** 0.9468 (mejora de +0.52 puntos)
-
-**Resultado final en test:**
-```
-              precision    recall  f1-score   support
-
-      NORMAL       0.87      0.94      0.91       234
-   PNEUMONIA       0.97      0.92      0.94       390
-
-    accuracy                           0.93       624
-```
+**Nota:** El notebook incluye código para optimización de hiperparámetros mediante Grid Search, pero no se ejecutó en la versión actual debido al costo computacional. Los resultados reportados corresponden a los hiperparámetros por defecto de scikit-learn.
 
 ---
 
@@ -482,17 +466,24 @@ Casos normales clasificados como neumonía:
 | CNN Custom | 0.93 | 0.95 | [[12]](#ref12) |
 | Transfer Learning (VGG16) | 0.96 | 0.97 | [[13]](#ref13) |
 | ResNet50 + Data Aug | 0.98 | 0.98 | [[14]](#ref14) |
-| **Nuestro RF** | **0.93** | **0.95** | Este trabajo |
+| **Nuestra CNN básica** | **0.78** | **0.85** | Este trabajo |
+| **Nuestro k-NN** | **0.82** | **0.85** | Este trabajo |
 
-**Observación sorprendente:** Nuestros descriptores clásicos alcanzan rendimiento **comparable** a CNNs básicas, aunque inferior a arquitecturas modernas con transfer learning.
+**Observación:** Nuestros descriptores clásicos y CNN básica logran un rendimiento moderado (F1-Score ~85%), considerablemente inferior al estado del arte. Esto era esperado dado que:
+1. No aplicamos data augmentation extensivo
+2. No usamos transfer learning
+3. Nuestra CNN es muy simple (3 capas conv)
+4. El objetivo era explorar fundamentos, no optimizar para máximo rendimiento
 
 ### 5.4 Lecciones Aprendidas
 
-1. **CLAHE es crucial**: Mejora +8% F1-Score vs imágenes crudas
+1. **CLAHE es importante**: Mejora el contraste local en radiografías
 2. **Gabor filters destacan**: Mayor poder discriminativo para neumonía
 3. **Desbalance requiere métricas robustas**: Accuracy puede ser engañosa
 4. **Validación técnica es necesaria**: Debugging de valores infinitos consumió tiempo significativo
-5. **Random Forest > SVM**: Para este problema de alta dimensionalidad
+5. **Gap entre CV y Test**: Los modelos muestran overfitting (F1 de 95-96% en CV vs 83-85% en test)
+6. **CNN simple no es suficiente**: Sin transfer learning o data augmentation, la CNN básica no supera a clasificadores clásicos
+7. **k-NN sorprende**: A pesar de su simplicidad, logra el mejor accuracy en test
 
 ---
 
@@ -500,27 +491,31 @@ Casos normales clasificados como neumonía:
 
 ### 6.1 Principales Hallazgos
 
-1. **Los descriptores handcrafted son sorprendentemente efectivos** para clasificación de neumonía, alcanzando 94.7% F1-Score con Random Forest optimizado.
+1. **Los descriptores handcrafted alcanzan rendimiento moderado** para clasificación de neumonía, logrando ~85% F1-Score con k-NN y clasificadores tradicionales.
 
-2. **Los filtros de Gabor y HOG** son los descriptores más discriminativos, capturando patrones direccionales y estructuras de bordes relevantes para neumonía.
+2. **Existe un gap significativo entre validación cruzada y test**: Los modelos muestran F1-Scores de 95-96% en CV pero caen a 83-85% en test, indicando overfitting.
 
-3. **El desbalance de clases** (3:1) requiere atención especial en métricas (F1, Recall > Accuracy) y en interpretación de resultados.
+3. **Los filtros de Gabor y HOG** son los descriptores más discriminativos según el análisis de importancia de Random Forest, capturando patrones direccionales y estructuras de bordes.
 
-4. **La interpretabilidad** de descriptores clásicos es valiosa en contexto médico, permitiendo validar decisiones del modelo con conocimiento clínico.
+4. **El desbalance de clases** (3:1) requiere atención especial en métricas (F1, Recall > Accuracy) y en interpretación de resultados.
 
-5. **El preprocesamiento (CLAHE)** tiene impacto significativo en el rendimiento final.
+5. **La CNN básica sin transfer learning** no supera a los clasificadores clásicos, alcanzando F1-Score de 84.8% pero con el mejor recall (99.2%).
+
+6. **k-NN muestra el mejor balance** entre accuracy y otras métricas en el conjunto de test, a pesar de su simplicidad.
+
+7. **La interpretabilidad** de descriptores clásicos es valiosa en contexto médico, permitiendo validar decisiones del modelo con conocimiento clínico.
 
 ### 6.2 Comparación: Handcrafted vs Deep Learning
 
-| Aspecto | Descriptores Clásicos | Deep Learning |
-|---------|----------------------|---------------|
-| **Rendimiento** | Muy bueno (93-95% F1) | Excelente (96-98% F1) |
-| **Interpretabilidad** | Alta | Baja (caja negra) |
-| **Datos requeridos** | Pocos (1,000+) | Muchos (10,000+) |
-| **Tiempo de entrenamiento** | Minutos | Horas |
-| **Hardware** | CPU suficiente | GPU recomendable |
-| **Generalización** | Depende de features | Mejor con transfer learning |
-| **Conocimiento experto** | Necesario | No necesario |
+| Aspecto | Descriptores Clásicos | Deep Learning (CNN básica) | Deep Learning (SOTA) |
+|---------|----------------------|---------------------------|---------------------|
+| **Rendimiento** | Moderado (82-85% F1) | Similar (85% F1) | Excelente (96-98% F1) |
+| **Interpretabilidad** | Alta | Baja (caja negra) | Baja (caja negra) |
+| **Datos requeridos** | Pocos (1,000+) | Moderados (5,000+) | Muchos (10,000+) |
+| **Tiempo de entrenamiento** | Minutos | Minutos-Horas | Horas |
+| **Hardware** | CPU suficiente | GPU recomendable | GPU necesaria |
+| **Generalización** | Depende de features | Limitada sin transfer learning | Mejor con transfer learning |
+| **Conocimiento experto** | Necesario | No necesario | No necesario |
 
 **Conclusión:** No existe un "ganador absoluto". La elección depende del contexto:
 - **Pocos datos + interpretabilidad crítica** → Descriptores clásicos
@@ -530,12 +525,25 @@ Casos normales clasificados como neumonía:
 
 ### 6.3 Reflexión Final
 
-Este proyecto demuestra que los **fundamentos de visión por computador** siguen siendo relevantes en la era del Deep Learning. Comprender cómo funcionan los descriptores clásicos proporciona:
+Este proyecto demuestra que los **fundamentos de visión por computador** siguen siendo relevantes como herramienta educativa y de exploración. Comprender cómo funcionan los descriptores clásicos proporciona:
 
-- **Intuición** sobre qué buscar en imágenes médicas
+- **Intuición** sobre qué buscar en imágenes médicas (bordes, texturas, formas)
 - **Baseline sólido** para comparar con métodos modernos
-- **Alternativa viable** cuando Deep Learning no es factible
+- **Comprensión de limitaciones**: El gap entre CV y test (95% → 85%) muestra la dificultad de generalización
 - **Base teórica** para diseñar arquitecturas CNN más efectivas
+- **Alternativa práctica** cuando Deep Learning no es factible (pocos datos, recursos limitados)
+
+**Limitaciones identificadas:**
+1. Overfitting significativo en modelos clásicos
+2. CNN básica requiere transfer learning para competir con SOTA
+3. Alto costo computacional de extracción de features (54K características)
+4. Sensibilidad a calidad de preprocesamiento
+
+**Próximos pasos sugeridos:**
+1. Implementar data augmentation más agresivo
+2. Explorar transfer learning (VGG16, ResNet)
+3. Reducción de dimensionalidad más agresiva (PCA, feature selection)
+4. Ensambles de modelos clásicos + CNN
 
 El conocimiento de ambos paradigmas hace mejores científicos de datos en visión por computador.
 
