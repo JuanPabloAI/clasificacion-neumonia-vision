@@ -296,7 +296,7 @@ La proyección en 2 componentes principales (12% varianza) muestra:
 #### Validación Cruzada (5-Fold)
 
 | Clasificador | F1-Score (CV) | Std Dev |
-|--------------|---------------|---------|-----|
+|--------------|---------------|---------|
 | Logistic Regression | 0.9540 | ±0.0089 |
 | SVM (Linear) | 0.9628 | ±0.0092 |
 | SVM (RBF) | 0.9625 | ±0.0120 |
@@ -308,7 +308,7 @@ La proyección en 2 componentes principales (12% varianza) muestra:
 #### Resultados en Conjunto de Prueba
 
 | Clasificador | Accuracy | Precision | Recall | F1-Score | AUC-ROC |
-|--------------|----------|-----------|--------|----------|---------|-----|
+|--------------|----------|-----------|--------|----------|---------|
 | k-NN (k=5) | 0.8173 | 0.8670 | 0.8359 | 0.8512 | 0.8783 |
 | Logistic Regression | 0.7853 | 0.7581 | 0.9641 | 0.8488 | 0.9205 |
 | CNN (imágenes crudas) | 0.7772 | 0.7400 | 0.9923 | 0.8478 | 0.9339 |
